@@ -9,30 +9,29 @@
 import UIKit
 
 class CalendarDateRangePickerCell: UICollectionViewCell {
-    
+
     private let defaultTextColor = UIColor.darkGray
+    private let selectedColor = UIColor(red: 66/255.0, green: 150/255.0, blue: 240/255.0, alpha: 1.0)
     private let highlightedColor = UIColor(white: 0.9, alpha: 1.0)
     private let disabledColor = UIColor.lightGray
-    
-    var selectedColor: UIColor!
-    
+
     var date: Date?
     var selectedView: UIView?
     var halfBackgroundView: UIView?
     var roundHighlightView: UIView?
-    
+
     var label: UILabel!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initLabel()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         initLabel()
     }
-    
+
     func initLabel() {
         label = UILabel(frame: frame)
         label.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
@@ -41,7 +40,7 @@ class CalendarDateRangePickerCell: UICollectionViewCell {
         label.textAlignment = NSTextAlignment.center
         self.addSubview(label)
     }
-    
+
     func reset() {
         self.backgroundColor = UIColor.clear
         label.textColor = defaultTextColor
@@ -59,7 +58,7 @@ class CalendarDateRangePickerCell: UICollectionViewCell {
             roundHighlightView = nil
         }
     }
-    
+
     func select() {
         let width = self.frame.size.width
         let height = self.frame.size.height
@@ -67,11 +66,11 @@ class CalendarDateRangePickerCell: UICollectionViewCell {
         selectedView?.backgroundColor = selectedColor
         selectedView?.layer.cornerRadius = height / 2
         self.addSubview(selectedView!)
-        self.sendSubview(toBack: selectedView!)
-        
+      self.sendSubviewToBack(selectedView!)
+
         label.textColor = UIColor.white
     }
-    
+
     func highlightRight() {
         // This is used instead of highlight() when we need to highlight cell with a rounded edge on the left
         let width = self.frame.size.width
@@ -79,11 +78,11 @@ class CalendarDateRangePickerCell: UICollectionViewCell {
         halfBackgroundView = UIView(frame: CGRect(x: width / 2, y: 0, width: width / 2, height: height))
         halfBackgroundView?.backgroundColor = highlightedColor
         self.addSubview(halfBackgroundView!)
-        self.sendSubview(toBack: halfBackgroundView!)
-        
+      self.sendSubviewToBack(halfBackgroundView!)
+
         addRoundHighlightView()
     }
-    
+
     func highlightLeft() {
         // This is used instead of highlight() when we need to highlight the cell with a rounded edge on the right
         let width = self.frame.size.width
@@ -91,11 +90,11 @@ class CalendarDateRangePickerCell: UICollectionViewCell {
         halfBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: width / 2, height: height))
         halfBackgroundView?.backgroundColor = highlightedColor
         self.addSubview(halfBackgroundView!)
-        self.sendSubview(toBack: halfBackgroundView!)
-        
+      self.sendSubviewToBack(halfBackgroundView!)
+
         addRoundHighlightView()
     }
-    
+
     func addRoundHighlightView() {
         let width = self.frame.size.width
         let height = self.frame.size.height
@@ -103,15 +102,15 @@ class CalendarDateRangePickerCell: UICollectionViewCell {
         roundHighlightView?.backgroundColor = highlightedColor
         roundHighlightView?.layer.cornerRadius = height / 2
         self.addSubview(roundHighlightView!)
-        self.sendSubview(toBack: roundHighlightView!)
+      self.sendSubviewToBack(roundHighlightView!)
     }
-    
+
     func highlight() {
         self.backgroundColor = highlightedColor
     }
-    
+
     func disable() {
         label.textColor = disabledColor
     }
-    
+
 }
